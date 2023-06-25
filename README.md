@@ -49,3 +49,5 @@ platformio run -t upload
 ```
 
 If you're using an ESP32-S2 or ESP32-S3 you might have to put the CPU in download mode by holding the BOOT (or FLASH or GPIO0) button, pressing and releasing the RESET button, and releasing the BOOT button. If the CPU is already running the code and is in deep sleep you may have to wake it up with RESET or with the BOOT/RESET sequence.
+
+**This is a work in progress.** While the hardware has been optimized for power saving, the software needs some work. In particular sensor readings are inefficient.
