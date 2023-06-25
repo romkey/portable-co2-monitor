@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 John Romkey
+//
+// SPDX-License-Identifier: MIT
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPIFFS.h>
@@ -148,13 +152,35 @@ void show_graph() {
   Serial.println(low);
 #endif
 
+
   display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE); // Draw white text
+
+  display.setCursor(0, 0);
+  display.print(current_reading);
+  display.setCursor(20, 0);
+  display.print("current");
+  display.display();
+  delay(1000);
+
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE); // Draw white text
+
+  display.setCursor(0, 0);
+  display.print(high);
+
+  display.setCursor(0, SCREEN_HEIGHT-10);
+  display.print(low);
 
   for(uint16_t i = 0; i < SCREEN_WIDTH; i++) {
 #ifdef TEST
     Serial.print(i);
     Serial.print(", ");
-    Serial.println(map(readings[start + i].co2, low, high, 0, 63));
+    Serial.println(map(readings[(start + i) % MAX_READINGS].co2, low, high, 0, 63));
 #endif
 
     display.drawPixel(i, 63 - map(readings[(start + i) % MAX_READINGS].co2, low, high, 0, 63), SSD1306_WHITE);
